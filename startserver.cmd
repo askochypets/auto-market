@@ -1,0 +1,1 @@
+SET DEBUG=auto-market:* & npm start
