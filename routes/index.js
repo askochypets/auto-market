@@ -30,4 +30,16 @@ router.get('/mercedes', function(req, res, next) {
   res.render('mercedes', { title: 'Mercedes' });
 });
 
+router.get('/opel', function(req, res, next) {
+  res.render('opel', { title: 'Opel' });
+});
+
+router.get('/volkswagen', function(req, res, next) {
+  res.render('volkswagen', { title: 'Volkswagen' });
+});
+
+router.get('/nissan', function(req, res, next) {
+  res.render('nissan', { title: 'Nissan' });
+});
+
 module.exports = router;

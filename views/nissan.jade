@@ -1,0 +1,8 @@
+include mixins.jade
+
+extends layout
+
+block content
+  h1 Запчастини для #{title}
+  +model("/nissan/kubistar", "/images/nissan/kubistar.jpg", "Nissan Kubistar")
+  +model("/nissan/primastar", "/images/nissan/primastar.jpg", "Nissan Primastar")

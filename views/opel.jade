@@ -1,0 +1,8 @@
+include mixins.jade
+
+extends layout
+
+block content
+  h1 Запчастини для #{title}
+  +model("/opel/vivaro", "/images/opel/vivaro.jpg", "Opel Vivaro")
+  +model("/opel/movano", "/images/opel/movano.jpg", "Opel Movano")
