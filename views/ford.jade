@@ -1,6 +1,9 @@
+include mixins.jade
+
 extends layout
 
 block content
-  #content-wrapper(class="container center-block")
-    h1 Запчастини для #{title}
-    .row
+  h1 Запчастини для #{title}
+  +model("/fiat/doblo", "/images/doblo.jpg", "Fiat Doblo")
+  +model("/fiat/scudo", "/images/scudo.jpg", "Fiat Scudo")
+  +model("/fiat/ducato", "/images/ducato.jpg", "Fiat Ducato")
