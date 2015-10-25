@@ -1,0 +1,17 @@
+//- Mixins
+
+mixin catalog(url, imgSrc, dataArr)
+  div.cell.col-sm-4
+    .inner
+      a(href= url)
+        img(src= imgSrc, alt= url.replace("/", ""))
+      ul.list-inline.container-fluid
+        each val in dataArr
+          li 
+            a(href= url + "/" + val.toLowerCase())= val
+
+mixin model(url, imgSrc, title)
+  div.cell.col-sm-3.modellist
+      a(href= url)
+        img(src= imgSrc)
+        div= title

@@ -6,7 +6,9 @@ html
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
   body
-    #wrapper(class="container center-block")
-      block content
-      footer 
-        .footer-inner
+    #wrapper
+      header(class="bg-primary")
+      #content-wrapper(class="container center-block")
+        block content
+    footer(class="bg-primary") 
+      .footer-inner

@@ -1,5 +1,15 @@
+include mixins.jade
+
 extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  .table-wrapper
+    .row
+      +catalog("/fiat", "/images/fiat.png", ["Doblo", "Scudo", "Ducato"])
+      +catalog("/citroen", "/images/citroen.png", ["Nemo", "Berlingo", "Jumpy", "Jumper"])
+      +catalog("/ford", "/images/ford.png", ["Courier", "Transit", "Connect"])
+    .row
+      +catalog("/peugeot", "/images/peugeot.png", ["806", "Bipper", "Boxer", "Expert", "J5", "Partner"])
+      +catalog("/renault", "/images/renault.png", ["Kangoo", "Mascott", "Master", "Trafic"])
+      +catalog("/mercedes", "/images/mercedes.png", ["Sprinter", "Vito"])
