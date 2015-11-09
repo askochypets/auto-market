@@ -2,44 +2,26 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
+
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/fiat', function(req, res, next) {
-  res.render('fiat', { title: 'Fiat' });
-});
+/* GET other page. */
 
-router.get('/citroen', function(req, res, next) {
-  res.render('citroen', { title: 'Citroen' });
-});
-
-router.get('/ford', function(req, res, next) {
-  res.render('ford', { title: 'Ford' });
-});
-
-router.get('/peugeot', function(req, res, next) {
-  res.render('peugeot', { title: 'Peugeot' });
-});
-
-router.get('/renault', function(req, res, next) {
-  res.render('renault', { title: 'Renault' });
-});
-
-router.get('/mercedes', function(req, res, next) {
-  res.render('mercedes', { title: 'Mercedes' });
-});
-
-router.get('/opel', function(req, res, next) {
-  res.render('opel', { title: 'Opel' });
-});
-
-router.get('/volkswagen', function(req, res, next) {
-  res.render('volkswagen', { title: 'Volkswagen' });
-});
-
-router.get('/nissan', function(req, res, next) {
-  res.render('nissan', { title: 'Nissan' });
+router.get('/:mark', function(req, res, next) {
+  db.all('SELECT * FROM auto', function(err, row) {
+    if(err !== null) {
+      // Express handles errors via its next function.
+      // It will call the next operation layer (middleware),
+      // which is by default one that handles errors.
+      next(err);
+    }
+    else {
+      console.log(row);
+      res.render('index', { title: 'Express' });
+    }
+  });
 });
 
 module.exports = router;

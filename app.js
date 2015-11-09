@@ -1,14 +1,40 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var express = require('express'),
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    sqlite3 = require('sqlite3').verbose(),
+    db = new sqlite3.Database('auto.db');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+// Database initialization
+db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='auto'",
+       function(err, rows) {
+  if(err !== null) {
+    console.log(err);
+  }
+  else if(rows === undefined) {
+    db.run('CREATE TABLE "auto" ' +
+           '("id" INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+           '"name" VARCHAR(20))', function(err) {
+      if(err !== null) {
+        console.log(err);
+      }
+      else {
+        console.log("SQL Table 'bookmarks' initialized.");
+      }
+    });
+  }
+  else {
+    console.log("SQL Table 'bookmarks' already initialized.");
+  }
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
