@@ -5,7 +5,7 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     sqlite3 = require('sqlite3').verbose(),
-    db = new sqlite3.Database('auto.db');
+    db = new sqlite3.Database('./db/auto.db');
 
 var routes = require('./routes/index');
 

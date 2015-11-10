@@ -1,7 +1,7 @@
 var express = require('express'),
     router = express.Router(),
     sqlite3 = require('sqlite3').verbose(),
-    db = new sqlite3.Database('auto.db');
+    db = new sqlite3.Database('./db/auto.db');
 
 /* GET home page. */
 
@@ -11,18 +11,18 @@ router.get('/', function(req, res, next) {
 
 /* GET other page. */
 
-router.get('/:mark', function(req, res, next) {
-  res.render(req.params.mark, { title: req.params.mark });
-  // db.all('SELECT name FROM auto WHERE id="1"', function(err, rows) {
+router.get('/:auto', function(req, res, next) {
+  res.render(req.params.auto, { title: req.params.auto });
+  // db.all('SELECT name FROM auto where id="5"', function(err) {
   //   if(err !== null) {
   //     // Express handles errors via its next function.
   //     // It will call the next operation layer (middleware),
   //     // which is by default one that handles errors.
+
   //     next(err);
   //   }
   //   else {
-  //     console.log("-------------------------------------------")
-      
+
   //   }
   // });
 });
