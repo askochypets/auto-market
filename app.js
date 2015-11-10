@@ -8,33 +8,8 @@ var express = require('express'),
     db = new sqlite3.Database('auto.db');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
-
-// Database initialization
-db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='auto'",
-       function(err, rows) {
-  if(err !== null) {
-    console.log(err);
-  }
-  else if(rows === undefined) {
-    db.run('CREATE TABLE "auto" ' +
-           '("id" INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-           '"name" VARCHAR(20))', function(err) {
-      if(err !== null) {
-        console.log(err);
-      }
-      else {
-        console.log("SQL Table 'bookmarks' initialized.");
-      }
-    });
-  }
-  else {
-    console.log("SQL Table 'bookmarks' already initialized.");
-  }
-});
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -50,7 +25,6 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -83,5 +57,27 @@ app.use(function(err, req, res, next) {
   });
 });
 
+// Database initialization
+db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='auto'",
+       function(err, rows) {
+  if(err !== null) {
+    console.log(err);
+  }
+  else if(rows === undefined) {
+    db.run('CREATE TABLE "auto" ' +
+           '("id" INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+           '"name" VARCHAR(20))', function(err) {
+      if(err !== null) {
+        console.log(err);
+      }
+      else {
+        console.log("SQL Table 'bookmarks' initialized.");
+      }
+    });
+  }
+  else {
+    console.log("SQL Table 'bookmarks' already initialized.");
+  }
+});
 
 module.exports = app;
