@@ -1,17 +1,20 @@
 //- Mixins
 
-mixin catalog(url, imgSrc, dataArr)
-  div.col-sm-4.catalog
-    .inner
-      a(href= url)
-        img(src= imgSrc, alt= url.replace("/", ""))
-      ul.list-inline.container-fluid
-        each val in dataArr
-          li 
-            a(href= url + "/" + val.toLowerCase())= val
+mixin catalog(obj)
+  each objVal, objKey in obj
+    div.col-sm-4.catalog
+      .inner
+        a(href= objKey.toLowerCase())
+          img(src="/images/mark/" + objKey + ".png", alt=objKey)
+        ul.list-inline.container-fluid
+          each arrVal in objVal
+            li 
+              a(href= objKey + "/" + arrVal.toLowerCase())= arrVal.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})
 
-mixin model(url, imgSrc, title)
-  div.cell.col-sm-3.modellist
-      a(href= url)
-        img(src= imgSrc)
-        div= title
+mixin model(arr)
+  each obj in arr
+    each val in obj.models
+      div.cell.col-sm-3.modellist
+        a(href= obj.name + "/" + val)
+          img(src= "/images/" + obj.name + "/" + val + ".jpg", alt=obj.name)
+          div= val.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})

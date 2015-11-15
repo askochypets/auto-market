@@ -58,26 +58,26 @@ app.use(function(err, req, res, next) {
 });
 
 // Database initialization
-db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='auto'",
-       function(err, rows) {
-  if(err !== null) {
-    console.log(err);
-  }
-  else if(rows === undefined) {
-    db.run('CREATE TABLE "auto" ' +
-           '("id" INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-           '"name" VARCHAR(20))', function(err) {
-      if(err !== null) {
-        console.log(err);
-      }
-      else {
-        console.log("SQL Table 'bookmarks' initialized.");
-      }
-    });
-  }
-  else {
-    console.log("SQL Table 'bookmarks' already initialized.");
-  }
-});
+// db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='auto'",
+//        function(err, rows) {
+//   if(err !== null) {
+//     console.log(err);
+//   }
+//   else if(rows === undefined) {
+//     db.run('CREATE TABLE "auto" ' +
+//            '("id" INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+//            '"name" VARCHAR(20))', function(err) {
+//       if(err !== null) {
+//         console.log(err);
+//       }
+//       else {
+//         console.log("SQL Table 'auto' initialized.");
+//       }
+//     });
+//   }
+//   else {
+//     console.log("SQL Table 'auto' already initialized.");
+//   }
+// });
 
 module.exports = app;
