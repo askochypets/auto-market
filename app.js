@@ -3,15 +3,7 @@ var express = require('express'),
     favicon = require('serve-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
-    mysql      = require('mysql'),
-    connection = mysql.createConnection({
-        host     : 'localhost',
-        user     : 'dbuser',
-        password : 's3kre7'
-    });
-
-
+    bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 
