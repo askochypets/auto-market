@@ -4,8 +4,14 @@ var express = require('express'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
-    sqlite3 = require('sqlite3').verbose(),
-    db = new sqlite3.Database('./db/auto.db');
+    mysql      = require('mysql'),
+    connection = mysql.createConnection({
+        host     : 'localhost',
+        user     : 'dbuser',
+        password : 's3kre7'
+    });
+
+
 
 var routes = require('./routes/index');
 
@@ -56,28 +62,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-// Database initialization
-// db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='auto'",
-//        function(err, rows) {
-//   if(err !== null) {
-//     console.log(err);
-//   }
-//   else if(rows === undefined) {
-//     db.run('CREATE TABLE "auto" ' +
-//            '("id" INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-//            '"name" VARCHAR(20))', function(err) {
-//       if(err !== null) {
-//         console.log(err);
-//       }
-//       else {
-//         console.log("SQL Table 'auto' initialized.");
-//       }
-//     });
-//   }
-//   else {
-//     console.log("SQL Table 'auto' already initialized.");
-//   }
-// });
 
 module.exports = app;

@@ -1,7 +1,11 @@
 var express = require('express'),
     router = express.Router(),
-    sqlite3 = require('sqlite3').verbose(),
-    db = new sqlite3.Database('./db/auto.db');
+    mysql      = require('mysql'),
+    connection = mysql.createConnection({
+        host     : 'localhost',
+        user     : 'dbuser',
+        password : 's3kre7'
+    });
 
 /* GET home page. */
 
@@ -12,19 +16,15 @@ router.get('/', function(req, res, next) {
 /* GET other page. */
 
 router.get('/:auto', function(req, res, next) {
-  res.render(req.params.auto, { title: req.params.auto });  
-  // db.run('SELECT name FROM auto where id="5"', function(err) {
-  //   if(err !== null) {
-  //     // Express handles errors via its next function.
-  //     // It will call the next operation layer (middleware),
-  //     // which is by default one that handles errors.
-
-  //     next(err);
-  //   }
-  //   else {
-      
-  //   }
-  // });
+  res.render(req.params.auto, { title: req.params.auto });
+    //connection.connect();
+    //
+    //connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+    //    if (err) throw err;
+    //    console.log('The solution is: ', rows[0].solution);
+    //});
+    //
+    //connection.end();
 });
 
 module.exports = router;
