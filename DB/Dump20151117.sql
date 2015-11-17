@@ -18,27 +18,56 @@ USE `automarket`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `kyrwa`
+-- Table structure for table `auto`
 --
 
-DROP TABLE IF EXISTS `kyrwa`;
+DROP TABLE IF EXISTS `auto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `kyrwa` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `val` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+CREATE TABLE `auto` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UX_name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `kyrwa`
+-- Dumping data for table `auto`
 --
 
-LOCK TABLES `kyrwa` WRITE;
-/*!40000 ALTER TABLE `kyrwa` DISABLE KEYS */;
-INSERT INTO `kyrwa` VALUES (1,'d'),(2,'2'),(3,'d');
-/*!40000 ALTER TABLE `kyrwa` ENABLE KEYS */;
+LOCK TABLES `auto` WRITE;
+/*!40000 ALTER TABLE `auto` DISABLE KEYS */;
+INSERT INTO `auto` VALUES (1,'Ford'),(6,'Opel');
+/*!40000 ALTER TABLE `auto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `models`
+--
+
+DROP TABLE IF EXISTS `models`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `models` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `auto_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UX_name` (`name`),
+  KEY `FK_auto` (`auto_id`),
+  CONSTRAINT `models_ibfk_1` FOREIGN KEY (`auto_id`) REFERENCES `auto` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `models`
+--
+
+LOCK TABLES `models` WRITE;
+/*!40000 ALTER TABLE `models` DISABLE KEYS */;
+INSERT INTO `models` VALUES (1,'Fusion',1),(2,'Focus',1),(4,'Transit',1),(5,'Movano',6);
+/*!40000 ALTER TABLE `models` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +79,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-16 16:59:21
+-- Dump completed on 2015-11-17 17:38:35
