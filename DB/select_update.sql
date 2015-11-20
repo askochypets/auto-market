@@ -1,8 +1,1 @@
-SELECT * FROM models;
-
-UPDATE models SET name = 'Fusion' WHERE id = 1;
-
-SELECT models.name
-FROM models
-LEFT JOIN auto ON auto.id = models.auto_id
-WHERE auto.name = 'Ford'
+SELECT a.name maker, m.name model FROM models m INNER JOIN auto a ON m.auto_id = a.id;

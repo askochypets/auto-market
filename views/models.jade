@@ -3,7 +3,7 @@ include mixins.jade
 extends layout
 
 block content
-  h1 Запчастини для #{title.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})}
+  h1 #{title.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})}
   +model([{
   	name: "mercedes",
   	models : [

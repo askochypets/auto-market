@@ -5,27 +5,35 @@ var express = require('express'),
         host     : 'localhost',
         user     : 'root',
         password : 'root',
-        database : 'auto-market'
+        database : 'automarket'
     });
+
+    connection.connect();
 
 /* GET home page. */
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.render('index', { title: 'Auto list' });
 });
 
 /* GET other page. */
 
-router.get('/:auto', function(req, res, next) {
-  res.render(req.params.auto, { title: req.params.auto });
-    connection.connect();
-
-    connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+router.get('/models', function(req, res) {
+    connection.query('SELECT a.name maker, m.name model FROM models m INNER JOIN auto a ON m.auto_id = a.id;', function(err, rows) {
         if (err) throw err;
-        console.log('The solution is: ', rows[0].solution);
-    });
+        var list = {};
 
+
+        for (var obj in rows) {
+            
+        }
+
+    });
     connection.end();
+    res.render('models', { title: 'mercedes benz' });
+
+
+
 });
 
 module.exports = router;
