@@ -1,25 +1,15 @@
-include mixins.jade
-
 extends layout
 
 block content
   h1= title
   .table-wrapper
     .row
-      +catalog({
-        "fiat" : [
-          "doblo",
-          "scudo",
-          "ducato"
-        ],
-        "citroen" : [
-          "doblo",
-          "scudo",
-          "ducato"
-        ],
-        "peugeot" : [
-          "doblo",
-          "scudo",
-          "ducato"
-        ]
-      })
+      each objVal, objKey in list
+        div.col-sm-4.catalog
+          .inner
+            a(href= objKey.toLowerCase())
+              img(src= objVal.imgurl, alt=objKey)
+            ul.list-inline.container-fluid
+              each arrVal in objVal.models
+                li
+                   a(href= objKey.toLowerCase() + "/" + arrVal.toLowerCase())= arrVal.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})

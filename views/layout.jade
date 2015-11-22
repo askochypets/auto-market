@@ -7,16 +7,15 @@ html
     link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
   body
     #wrapper
-      header(class="bg-primary")
-        .inner-wrapper.container.center-block
-          span.pull-right 0637467151
-          .info.pull-right Для замовлення деталей зателефонуйте за номером:
-
+      header.bg-primary
+        .inner-wrapper.container
+          .info
+            .description Для замовлення деталей зателефонуйте за номером:
+            span.phone 063 746 71 51
       #content-wrapper(class="container center-block")
         block content
-    footer(class="bg-primary") 
-      .inner-wrapper.container.center-block
-        span.pull-right 063 746 71 51
-        .info.pull-right Для замовлення деталей зателефонуйте за номером:
-
-
+    footer.bg-primary
+      .inner-wrapper.container
+        .info
+          .description Для замовлення деталей зателефонуйте за номером:
+          span.phone 063 746 71 51

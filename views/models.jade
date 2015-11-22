@@ -1,26 +1,12 @@
-include mixins.jade
-
 extends layout
 
 block content
-  h1 #{title.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})}
-  +model([{
-  	name: "mercedes",
-  	models : [
-		"vito",
-		"sprinter"
-  		]
-  	}, 
-  	{
-  	name: "opel",
-  	models : [
-		"vivaro",
-		"movano"
-  		]
-  	},
-  	{
-  	name: "renault",
-  	models : [
-		"trafic"
-  		]
-  	}])
+  each val, key in list
+    .row.all-models
+      h1
+        a(href= key.toLowerCase())= key
+      each elem in val
+        div.cell.col-sm-3.modellist
+          a(href= key.toLowerCase() + "/" + elem.toLowerCase())
+            img(src= "/images/" + key + "/" + elem + ".jpg", alt=key)
+            div= elem.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})

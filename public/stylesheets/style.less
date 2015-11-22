@@ -9,17 +9,35 @@ body {
 }
 
 .inner-wrapper {
-  height: 60px;
+  min-height: 60px;
   padding-top: 20px;
-  span {
-    font-size: 30px;
-    color: rgb(169, 217, 79);
-    text-shadow: 2px 2px 1px #2B2B2B;
+  @media (max-width: 767px) {
+    padding-top: 10px;
   }
   .info {
-    width: 220px;
-    text-shadow: 2px 2px 1px #2B2B2B;
-    font-weight: bold;
+    text-align: right;
+    @media (max-width: 767px) {
+      text-align: center;
+    }
+    span.phone {
+      font-size: 30px;
+      color: rgb(169, 217, 79);
+      text-shadow: 2px 2px 1px #2B2B2B;
+      @media (max-width: 767px) {
+        display: block;
+      }
+    }
+    .description {
+      text-align: left;
+      display: inline-block;
+      width: 220px;
+      text-shadow: 2px 2px 1px #2B2B2B;
+      font-weight: bold;
+      @media (max-width: 767px) {
+        width: auto;
+        text-align: center;
+      }
+    }
   }
 }
 #wrapper {
@@ -27,9 +45,11 @@ body {
     height: auto !important;
     padding-bottom: 80px;
   header {
-    height: 80px;
+    min-height: 80px;
+    box-shadow: 0 1px 5px #696969;
   }
   #content-wrapper {
+    padding-bottom: 20px;
     .table-wrapper {
       .catalog {
         padding-bottom: 25px; 
@@ -47,18 +67,31 @@ body {
         }
       }
     }
-    .modellist {
-      text-align: center;
-      a {
-        div {
-          font-size: 16px;
-          font-weight: bold;
-        }  
+    .all-models {
+      @media (max-width: 767px) {
+        text-align: center;
       }
+      .modellist {
+        text-align: center;
+        padding-bottom: 40px;
+        a {
+          div {
+            font-size: 16px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .model {
+      text-align: center;
+    }
+    .part-list {
+      padding-top: 20px;
     }
   }
 }
 footer {
-  height: 80px;
+  min-height: 80px;
   margin-top: -80px;
+  box-shadow: 0 -1px 5px #696969;
 }
