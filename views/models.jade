@@ -1,12 +1,15 @@
 extends layout
 
 block content
-  each val, key in list
+  each objVal, objKey in list
     .row.all-models
-      h1
-        a(href= key.toLowerCase())= key
-      each elem in val
+      if title
+        h1= title.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})
+      else
+        h1
+          a(href= objKey.toLowerCase())= objKey + " Models"
+      each obj in objVal
         div.cell.col-sm-3.modellist
-          a(href= key.toLowerCase() + "/" + elem.toLowerCase())
-            img(src= "/images/" + key + "/" + elem + ".jpg", alt=key)
-            div= elem.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})
+          a(href= objKey.toLowerCase() + "/" + obj.model.toLowerCase())
+            img(src= obj.imgurl, alt=objKey)
+            div= obj.model.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})

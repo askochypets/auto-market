@@ -1,10 +1,9 @@
 extends layout
 
 block content
-  div.col-sm-4.model
+  div
     h1 #{title.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})}
-    img(src= "/images/" + list.maker + "/" + list.model + ".jpg", alt=list.model)
-  div.col-sm-8.part-list
+  div.part-list
     table.table.table-striped
       thead
         tr
@@ -12,15 +11,8 @@ block content
           th Description
           th Cost
       tbody
-        tr
-          td Engine
-          td One of the important parts of auto
-          td 3000$
-        tr
-          td Transmission
-          td Need to change the speed of the car
-          td 1000$
-        tr
-          td Camshaft
-          td The part of engine
-          td 300$
+        each obj in list
+          tr
+            td= obj.name
+            td= obj.des
+            td= obj.price
