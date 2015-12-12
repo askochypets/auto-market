@@ -1,6 +1,7 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  .center-block.not-found
+    h1= error.status + " " + message
+    img(src= "/images/not_found.png")
+    pre #{error.stack}
