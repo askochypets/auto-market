@@ -12,4 +12,4 @@ block content
             ul.list-inline.container-fluid
               each arrVal in objVal.models
                 li
-                   a(href= objKey.toLowerCase() + "/" + arrVal.toLowerCase())= arrVal.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})
+                   a(href= objKey.toLowerCase() + "/" + arrVal.toLowerCase())= arrVal

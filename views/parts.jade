@@ -2,7 +2,7 @@ extends layout
 
 block content
   div
-    h1 #{title.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})}
+    h1= title
   div.part-list
     table.table.table-striped
       thead

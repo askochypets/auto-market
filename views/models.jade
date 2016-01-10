@@ -3,13 +3,13 @@ extends layout
 block content
   each objVal, objKey in list
     .row.all-models
-      if title
-        h1= title.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})
-      else
+      if allModels
         h1
           a(href= objKey.toLowerCase())= objKey + " Models"
+      else
+        h1= title
       each obj in objVal
         div.cell.col-sm-3.modellist
           a(href= objKey.toLowerCase() + "/" + obj.model.toLowerCase())
             img(src= obj.imgurl, alt=objKey)
-            div= obj.model.replace(/\b([a-z])/gi, function (val) {return val.toUpperCase()})
+            div= obj.model

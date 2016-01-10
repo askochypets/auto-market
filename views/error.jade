@@ -2,6 +2,6 @@ extends layout
 
 block content
   .center-block.not-found
-    h1= error.status + " " + message
+    h1= error.status + " " + error.message
     img(src= "/images/not_found.png")
-    pre #{error.stack}
+    pre= error.stack

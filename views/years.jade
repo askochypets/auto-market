@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  each val in list.year
+    div.col-sm-4.model
+      a(href= list.model.toLowerCase() + "/" + val)
+        img(src=list.imgurl, alt=list.model)
+      div
+        a(href= list.model.toLowerCase() + "/" + val)= val

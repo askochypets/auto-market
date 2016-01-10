@@ -47,6 +47,10 @@ body {
     min-height: 100%;
     height: auto !important;
     padding-bottom: 80px;
+    &.no-parts {
+      background: url("/images/no_parts.jpg");
+      background-size: cover;
+    }
   header {
     width: 100%;
     position: fixed;
@@ -114,7 +118,7 @@ body {
     .part-list {
       padding-top: 20px;
     }
-    .not-found {
+    .not-found, .no-parts {
       padding-top: 30px;
       text-align: center;
       img {
@@ -123,6 +127,10 @@ body {
       pre {
         text-align: left;
       }
+    }
+    .no-parts h1{
+      text-shadow: 9px 12px 1px white;
+      font-weight: 800;
     }
   }
 }
