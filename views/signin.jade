@@ -1,0 +1,13 @@
+extends layout
+block content
+  div(class="center-block sign-in")
+    form(id="SignInForm" name="SignInForm")
+      div(class="form-group")
+        label(class="control-label" "UserName") User name
+        input(type="text" class="form-control" id="UserName" name="UserName" placeholder="User name")
+        span(class="help-block hidden") Incorrect login
+      div(class="form-group")
+        label(class="control-label" for="UserPassword") Password
+        input(type="password" class="form-control" id="UserPassword" name="UserPassword" placeholder="Password")
+        span(class="help-block hidden") Incorrect password
+      button(type="submit" id="SignInButton" class="btn btn-default") Submit

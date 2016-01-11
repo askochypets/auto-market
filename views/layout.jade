@@ -2,9 +2,11 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
+    link(rel="stylesheet", href="/stylesheets/style.css")
+    link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
+    link(rel="stylesheet", href="/stylesheets/bootstrap-theme.min.css")
+    script(type="text/javascript" src="/js/jquery-2.2.0.min.js")
+    script(type="text/javascript" src="/js/main.js")
   body
     #wrapper(class= noParts ? "no-parts" : "")
       header.bg-primary
@@ -12,6 +14,7 @@ html
           a(href="/") Home
           a(href="/models") Models
           a(href="/parts") Parts
+          a(href="/signin") Sign In
       #content-wrapper(class="container center-block")
         block content
     footer.bg-primary

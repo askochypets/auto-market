@@ -9,6 +9,8 @@ var express = require('express'),
     });
 
     connection.connect();
+
+/* Capitalize the first letter of each word. */
 function capitalize (string) {
     return string.replace(/\b([a-z])/gi, function (val) { return val.toUpperCase() })
 };
@@ -33,12 +35,33 @@ router.get('/', function(req, res) {
 });
 
 /* GET admin page. */
-router.get('/admin', function(req, res) {
-    connection.query('SELECT p.name name, p.description des, p.price price FROM parts p;', function(err, rows) {
+router.get('/signin', function(req, res) {
+    res.render('signin', { title: "Admin Panel" });
+});
+
+router.post('/signin/adminpanel', function(req, res) {
+    var user = {
+        name: false,
+        pass: false
+    };
+    connection.query('SELECT u.username FROM users u ' +
+                     'WHERE u.username = "' + req.body.username + '"', function(err, rows) {
         if (err) throw err;
 
-        //render view
-        res.render('admin', { title: "Admin Panel" });
+        if (rows.length) {
+            user.name = true;
+        }
+    });
+    connection.query('SELECT u.password FROM users u ' +
+                     'WHERE u.username = "' + req.body.username + '" AND u.password = "' + req.body.password + '"', function(err, rows) {
+        if (err) throw err;
+
+        if (rows.length && user.name) {
+            user.pass = true;
+            res.status(200).send(user);
+        } else {
+            res.status(401).send(user);
+        }
     });
 });
 
