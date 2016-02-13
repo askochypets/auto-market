@@ -177,4 +177,29 @@ router.get('/:maker/:model/:year', function(req, res, next) {
     });
 });
 
+router.post('/addData', function(req, res) {
+    var data = req.body;
+
+    /*
+    connection.query('SELECT u.username FROM users u ' +
+    'WHERE u.username = "' + req.body.username + '"', function(err, rows) {
+        if (err) throw err;
+
+        if (rows.length) {
+            user.name = true;
+        }
+    });
+    connection.query('SELECT u.password FROM users u ' +
+    'WHERE u.username = "' + req.body.username + '" AND u.password = "' + req.body.password + '"', function(err, rows) {
+        if (err) throw err;
+
+        if (rows.length && user.name) {
+            user.pass = true;
+            res.status(200).send(user);
+        } else {
+            res.status(401).send(user);
+        }
+    });*/
+});
+
 module.exports = router;
