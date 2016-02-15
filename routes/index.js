@@ -177,8 +177,12 @@ router.get('/:maker/:model/:year', function(req, res, next) {
     });
 });
 
-router.post('/addData', function(req, res) {
+router.post('/saveMaker', function(req, res) {
     var data = req.body;
+    res.set({
+        'Access-Control-Allow-Origin': '*'
+    });
+    res.send(data);
 
     /*
     connection.query('SELECT u.username FROM users u ' +

@@ -3,5 +3,5 @@
 var keyMirror = require('react/lib/keyMirror');
 
 module.exports = keyMirror({
-	INITIALIZE: null
+	SAVE_MAKER: null
 });

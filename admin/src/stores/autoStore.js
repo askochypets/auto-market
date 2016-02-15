@@ -7,9 +7,9 @@ var assign = require('object-assign');
 var _ = require('lodash');
 var CHANGE_EVENT = 'change';
 
-var _authors = [];
+var _auto = [];
 
-var AuthorStore = assign({}, EventEmitter.prototype, {
+var AutoStore = assign({}, EventEmitter.prototype, {
 	addChangeListener: function(callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
@@ -20,43 +20,33 @@ var AuthorStore = assign({}, EventEmitter.prototype, {
 
 	emitChange: function() {
 		this.emit(CHANGE_EVENT);
-	},
-
-	getAllAuthors: function() {
-		return _authors;
-	},
-
-	getAuthorById: function(id) {
-		return _.find(_authors, {id: id});
 	}
 });
 
 Dispatcher.register(function(action) {
 	switch(action.actionType) {
-		case ActionTypes.INITIALIZE:
-			_authors = action.initialData.authors;
-			AuthorStore.emitChange();
+		case ActionTypes.SAVE_MAKER:
+			_auto.push(action.maker);
+			AutoStore.emitChange();
 			break;
-		case ActionTypes.CREATE_AUTHOR:
-			_authors.push(action.author);
-			AuthorStore.emitChange();
-			break;
+		/*
 		case ActionTypes.UPDATE_AUTHOR:
-			var existingAuthor = _.find(_authors, {id: action.author.id});
-			var existingAuthorIndex = _.indexOf(_authors, existingAuthor); 
-			_authors.splice(existingAuthorIndex, 1, action.author);
-			AuthorStore.emitChange();
-			break;	
+			var existingAuthor = _.find(_auto, {id: action.author.id});
+			var existingAuthorIndex = _.indexOf(_auto, existingAuthor);
+			_auto.splice(existingAuthorIndex, 1, action.author);
+			AutoStore.emitChange();
+			break;
 		case ActionTypes.DELETE_AUTHOR:
 			debugger;
-			_.remove(_authors, function(author) {
+			_.remove(_auto, function(author) {
 				return action.id === author.id;
 			});
-			AuthorStore.emitChange();
+			AutoStore.emitChange();
 			break;
+		*/
 		default:
 			// no op
 	}
 });
 
-module.exports = AuthorStore;
+module.exports = AutoStore;

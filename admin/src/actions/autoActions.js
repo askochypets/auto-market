@@ -1,10 +1,10 @@
 "use strict";
 
 var Dispatcher = require('../dispatcher/appDispatcher');
-var AuthorApi = require('../api/authorApi');
+var AutoApi = require('../api/autoApi');
 var ActionTypes = require('../constants/actionTypes');
 
-var AuthorActions = {
+var AutoActions = {
 	// Example
 	/*createAuthor: function(author) {
 		var newAuthor = AuthorApi.saveAuthor(author);
@@ -16,22 +16,12 @@ var AuthorActions = {
 		});
 	}*/
 
-	addData: function(dataObj) {
-		post("")
+	saveMaker: function(maker) {
+		Dispatcher.dispatch({
+			actionType: ActionTypes.SAVE_MAKER,
+			maker: AutoApi.saveMaker(maker)
+		});
 	}
 };
 
-function post(url, body) {
-	return fetch(url, {
-		method: 'post',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(body || {})
-	}).then(res){
-		return res.json();
-	}
-};
-
-module.exports = AuthorActions;
+module.exports = AutoActions;
