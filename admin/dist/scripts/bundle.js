@@ -45376,23 +45376,23 @@ var AutoApi = require('../api/autoApi');
 var ActionTypes = require('../constants/actionTypes');
 
 var AutoActions = {
-	// Example
-	/*createAuthor: function(author) {
-		var newAuthor = AuthorApi.saveAuthor(author);
+    // Example
+    /*createAuthor: function(author) {
+        var newAuthor = AuthorApi.saveAuthor(author);
 
-		//Hey dispatcher, go tell all the stores that an author was just created.
-		Dispatcher.dispatch({
-			actionType: ActionTypes.CREATE_AUTHOR,
-			author: newAuthor
-		});
-	}*/
+        //Hey dispatcher, go tell all the stores that an author was just created.
+        Dispatcher.dispatch({
+            actionType: ActionTypes.CREATE_AUTHOR,
+            author: newAuthor
+        });
+    }*/
 
-	saveMaker: function(maker) {
-		Dispatcher.dispatch({
-			actionType: ActionTypes.SAVE_MAKER,
-			maker: AutoApi.saveMaker(maker)
-		});
-	}
+    saveMaker: function(maker) {
+        Dispatcher.dispatch({
+            actionType: ActionTypes.SAVE_MAKER,
+            maker: AutoApi.saveMaker(maker)
+        });
+    }
 };
 
 module.exports = AutoActions;
@@ -45403,25 +45403,29 @@ var actions = require('../actions/autoActions');
 var _ = require('lodash');
 
 var _clone = function(item) {
-	return JSON.parse(JSON.stringify(item)); //return cloned copy so that the item is passed by value instead of by reference
+    return JSON.parse(JSON.stringify(item)); //return cloned copy so that the item is passed by value instead of by reference
 };
 
-function post(url, body) {
-	return fetch(url, {
-		method: 'post',
-		body: JSON.stringify(body || {})
-	}).then(function (res) {
-		return res.json();
-	});
+function post(url, data, result) {
+    return $.ajax({
+        url: url,
+        type: "POST",
+        async: false,
+        data: data,
+        success: function(response) {
+            result.response = response;   // Store response into result
+        }
+    });
 }
 
 var AutoApi = {
-	saveMaker: function(maker) {
-		var newMaker = post("http://localhost:3000/saveMaker", maker).then(actions.saveMaker.bind(actions));
+    saveMaker: function(maker) {
+        var newMaker = {};
 
-		console.log(newMaker);
-		return _clone(newMaker);
-	}
+        post("http://localhost:3000/saveMaker", maker, newMaker);
+
+        return _clone(newMaker.response);
+    }
 };
 
 module.exports = AutoApi;
@@ -45478,6 +45482,7 @@ var Button = React.createClass({displayName: "Button",
 });
 
 module.exports = Button;
+
 },{"react":203}],208:[function(require,module,exports){
 "use strict";
 
@@ -45503,6 +45508,7 @@ var Header = React.createClass({displayName: "Header",
 });
 
 module.exports = Header;
+
 },{"react":203,"react-router":31}],209:[function(require,module,exports){
 "use strict";
 
@@ -45601,7 +45607,7 @@ module.exports = NotFoundPage;
 var keyMirror = require('react/lib/keyMirror');
 
 module.exports = keyMirror({
-	SAVE_MAKER: null
+    SAVE_MAKER: null
 });
 
 },{"react/lib/keyMirror":188}],213:[function(require,module,exports){
@@ -45630,8 +45636,9 @@ var Router = require('react-router');
 var routes = require('./routes');
 
 Router.run(routes, function(Handler) {
-	React.render(React.createElement(Handler, null), document.getElementById('app'));
+    React.render(React.createElement(Handler, null), document.getElementById('app'));
 });
+
 },{"./routes":215,"react":203,"react-router":31}],215:[function(require,module,exports){
 "use strict";
 
