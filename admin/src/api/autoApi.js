@@ -5,7 +5,10 @@ var Request = require('./request');
 
 var AutoApi = {
     saveMaker: function(maker) {
-        return Request.post("http://localhost:3000/saveMaker", maker);
+        return Request.post("/saveMaker", maker);
+    },
+    removeMaker: function (maker) {
+        return Request.post("/removeMaker", maker);
     }
 };
 

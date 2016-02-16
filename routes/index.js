@@ -35,12 +35,13 @@ router.get('/', function(req, res) {
     });
 });
 
-/* GET admin page. */
+/* GET sign in page. */
 router.get('/signin', function(req, res) {
-    res.render('signin', { title: "Admin Panel" });
+    res.render('signin', { title: "Sign In Page" });
 });
 
-router.post('/signin/adminpanel', function(req, res) {
+/* GET admin page. */
+router.post('/admin', function(req, res) {
     var user = {
         name: false,
         pass: false
@@ -178,31 +179,30 @@ router.get('/:maker/:model/:year', function(req, res, next) {
     });
 });
 
+/* Save new model. */
 router.post('/saveMaker', function(req, res) {
-    var data = req.body;
-
-    res.send(data);
-
-    /*
-    connection.query('SELECT u.username FROM users u ' +
-    'WHERE u.username = "' + req.body.username + '"', function(err, rows) {
-        if (err) throw err;
-
-        if (rows.length) {
-            user.name = true;
+    connection.query('INSERT auto (name) VALUES ("' + req.body.maker + '");', function(err, rows) {
+        if (err) {
+            res.status(501).send("Sorry, but this data is already exist.");
+            return;
         }
+        res.send("Add succeeded");
     });
-    connection.query('SELECT u.password FROM users u ' +
-    'WHERE u.username = "' + req.body.username + '" AND u.password = "' + req.body.password + '"', function(err, rows) {
-        if (err) throw err;
+});
 
-        if (rows.length && user.name) {
-            user.pass = true;
-            res.status(200).send(user);
-        } else {
-            res.status(401).send(user);
+router.post('/removeMaker', function(req, res) {
+    connection.query('DELETE FROM auto WHERE name="' + req.body.maker + '";', function(err, rows) {
+        if (err) {
+            res.status(500).send("Error");
+            return;
         }
-    });*/
+        if (rows.affectedRows > 0) {
+            res.send("Remove succeeded");
+        } else {
+            res.status(501).send("Can not be found");
+        }
+
+    });
 });
 
 module.exports = router;

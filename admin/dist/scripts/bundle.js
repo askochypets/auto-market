@@ -45369,310 +45369,6 @@ module.exports = warning;
 module.exports = require('./lib/React');
 
 },{"./lib/React":76}],204:[function(require,module,exports){
-"use strict";
-
-var Dispatcher = require('../dispatcher/appDispatcher');
-var AutoApi = require('../api/autoApi');
-var ActionTypes = require('../constants/actionTypes');
-
-var AutoActions = {
-    saveMaker: function(maker) {
-        AutoApi.saveMaker(maker).then(function(data){
-            console.log(data);
-            Dispatcher.dispatch({
-                actionType: ActionTypes.SAVE_MAKER,
-                maker: data
-            });
-        });
-
-    }
-};
-
-module.exports = AutoActions;
-
-},{"../api/autoApi":205,"../constants/actionTypes":213,"../dispatcher/appDispatcher":214}],205:[function(require,module,exports){
-"use strict";
-var actions = require('../actions/autoActions');
-var _ = require('lodash');
-var Request = require('./request');
-
-var AutoApi = {
-    saveMaker: function(maker) {
-        return Request.post("http://localhost:3000/saveMaker", maker);
-    }
-};
-
-module.exports = AutoApi;
-
-},{"../actions/autoActions":204,"./request":206,"lodash":6}],206:[function(require,module,exports){
-"use strict";
-
-var Request = require('superagent');
-
-var headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-};
-
-module.exports = {
-    get: function (url) {
-        return new Promise(function (resolve, reject) {
-            Request.get(url)
-                .set(headers)
-                .end(function (err, res) {
-                    if (err) {
-                        return reject(err);
-                    }
-
-                    resolve(res.body);
-                });
-        });
-    },
-    post: function (url, data) {
-        return new Promise(function (resolve, reject) {
-            Request.post(url)
-                .set(headers)
-                .send(data)
-                .end(function (err, res) {
-                    if (err) {
-                        return reject(err);
-                    }
-
-                    resolve(res.body);
-                });
-        });
-    }
-};
-
-},{"superagent":217}],207:[function(require,module,exports){
-/*eslint-disable strict */ //Disabling check because we can't run strict mode. Need global vars.
-
-var React = require('react');
-var Header = require('./common/header');
-var RouteHandler = require('react-router').RouteHandler;
-$ = jQuery = require('jquery');
-
-var App = React.createClass({displayName: "App",
-	render: function() {
-		return (
-			React.createElement("div", null, 
-				React.createElement(Header, null), 
-				React.createElement("div", {className: "container-fluid"}, 
-					React.createElement(RouteHandler, null)
-				)
-			)
-		);
-	}
-});
-
-module.exports = App;
-
-},{"./common/header":209,"jquery":5,"react":203,"react-router":31}],208:[function(require,module,exports){
-"use strict";
-
-var React = require('react');
-
-var Button = React.createClass({displayName: "Button",
-    propTypes: {
-        name: React.PropTypes.string.isRequired,
-        value: React.PropTypes.string.isRequired,
-        class: React.PropTypes.string,
-        onClick: React.PropTypes.func
-    },
-
-    render: function() {
-        return (
-            React.createElement("div", {className: this.props.class}, 
-                React.createElement("button", {type: "button", 
-                    name: this.props.name, 
-                    value: this.props.value, 
-                    className: "btn btn-primary", 
-                    onClick: this.props.onClick}, 
-                    this.props.value
-                )
-            )
-        );
-    }
-});
-
-module.exports = Button;
-
-},{"react":203}],209:[function(require,module,exports){
-"use strict";
-
-var React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
-
-var Header = React.createClass({displayName: "Header",
-	render: function() {
-		return (
-        React.createElement("nav", {className: "navbar navbar-default"}, 
-          React.createElement("div", {className: "container-fluid"}, 
-              React.createElement(Link, {to: "app", className: "navbar-brand"}, 
-                React.createElement("img", {src: "images/pluralsight-logo.png"})
-              ), 
-              React.createElement("ul", {className: "nav navbar-nav"}, 
-                React.createElement("li", null, React.createElement(Link, {to: "app"}, "Home"))
-              )
-          )
-        )
-		);
-	}
-});
-
-module.exports = Header;
-
-},{"react":203,"react-router":31}],210:[function(require,module,exports){
-"use strict";
-
-var React = require('react');
-
-var Input = React.createClass({displayName: "Input",
-  propTypes: {
-    name: React.PropTypes.string.isRequired,
-    label: React.PropTypes.string.isRequired,
-    class: React.PropTypes.string,
-    onChange: React.PropTypes.func,
-    placeholder: React.PropTypes.string,
-    value: React.PropTypes.string,
-    error: React.PropTypes.string
-  },
-
-  render: function () {
-    var wrapperClass = 'form-group';
-    if (this.props.error && this.props.error.length > 0) {
-      wrapperClass += " " + 'has-error';
-    }
-    
-    return (
-     React.createElement("div", {className: wrapperClass + " " + this.props.class, style: {"display": "inline-block"}}, 
-        React.createElement("label", {htmlFor: this.props.name}, this.props.label), 
-        React.createElement("div", {className: "field"}, 
-          React.createElement("input", {type: "text", 
-            name: this.props.name, 
-            className: "form-control", 
-            placeholder: this.props.placeholder, 
-            ref: this.props.name, 
-            value: this.props.value, 
-            onChange: this.props.onChange}), 
-          React.createElement("div", {className: "input"}, this.props.error)
-        )
-      )
-    );
-  }
-});
-
-module.exports = Input;
-
-},{"react":203}],211:[function(require,module,exports){
-"use strict";
-
-var React = require('react');
-var Router = require('react-router');
-var Input = require('./common/textInput');
-var Button = require('./common/button');
-var AutoActions = require('../actions/autoActions');
-
-var Home = React.createClass({displayName: "Home",
-    render: function() {
-        return (
-            React.createElement("div", {className: "container"}, 
-                React.createElement("h1", null, "Administration Panel"), 
-                React.createElement("form", {name: "formData"}, 
-                    React.createElement("div", {className: "row"}, 
-                            React.createElement(Input, {label: "Enter Maker Name", name: "maker", class: "col-sm-2"}), 
-                            React.createElement(Input, {label: "Enter Model Name", name: "model", class: "col-sm-2"})
-                    ), 
-                    React.createElement("div", {className: "row"}, 
-                        React.createElement(Button, {name: "saveData", value: "Save Data", class: "col-sm-2", onClick: AutoActions.saveMaker.bind(this, {maker: "asda"})})
-                    )
-                )
-            )
-        );
-    }
-});
-
-module.exports = Home;
-
-},{"../actions/autoActions":204,"./common/button":208,"./common/textInput":210,"react":203,"react-router":31}],212:[function(require,module,exports){
-"use strict";
-
-var React = require('react');
-var Link = require('react-router').Link;
-
-var NotFoundPage = React.createClass({displayName: "NotFoundPage",
-	render: function() {
-		return (
-			React.createElement("div", null, 
-				React.createElement("h1", null, "Page Not Found"), 
-				React.createElement("p", null, "Whoops! Sorry, there is nothing to see here."), 
-				React.createElement("p", null, React.createElement(Link, {to: "app"}, "Back to Home"))
-			)
-		);
-	}
-});
-
-module.exports = NotFoundPage;
-
-},{"react":203,"react-router":31}],213:[function(require,module,exports){
-"use strict";
-
-var keyMirror = require('react/lib/keyMirror');
-
-module.exports = keyMirror({
-    SAVE_MAKER: null
-});
-
-},{"react/lib/keyMirror":188}],214:[function(require,module,exports){
-/*
- * Copyright (c) 2015, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * AppDispatcher
- *
- * A singleton that operates as the central hub for application updates.
- */
-
-var Dispatcher = require('flux').Dispatcher;
-
-module.exports = new Dispatcher();
-
-},{"flux":2}],215:[function(require,module,exports){
-"use strict";
-
-var React = require('react');
-var Router = require('react-router');
-var routes = require('./routes');
-
-Router.run(routes, function(Handler) {
-    React.render(React.createElement(Handler, null), document.getElementById('app'));
-});
-
-},{"./routes":216,"react":203,"react-router":31}],216:[function(require,module,exports){
-"use strict";
-
-var React = require('react');
-
-var Router = require('react-router');
-var Route = Router.Route;
-var DefaultRoute = Router.DefaultRoute;
-var NotFoundRoute = Router.NotFoundRoute;
-
-var routes = (
-  React.createElement(Route, {name: "app", path: "/", handler: require('./components/app')}, 
-    React.createElement(DefaultRoute, {handler: require('./components/homePage')}), 
-    React.createElement(NotFoundRoute, {handler: require('./components/notFoundPage')})
-  )
-);
-
-module.exports = routes;
-
-},{"./components/app":207,"./components/homePage":211,"./components/notFoundPage":212,"react":203,"react-router":31}],217:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -46865,7 +46561,7 @@ request.put = function(url, data, fn){
 
 module.exports = request;
 
-},{"emitter":218,"reduce":219}],218:[function(require,module,exports){
+},{"emitter":205,"reduce":206}],205:[function(require,module,exports){
 
 /**
  * Expose `Emitter`.
@@ -47028,7 +46724,7 @@ Emitter.prototype.hasListeners = function(event){
   return !! this.listeners(event).length;
 };
 
-},{}],219:[function(require,module,exports){
+},{}],206:[function(require,module,exports){
 
 /**
  * Reduce `arr` with `fn`.
@@ -47053,4 +46749,316 @@ module.exports = function(arr, fn, initial){
   
   return curr;
 };
-},{}]},{},[215]);
+},{}],207:[function(require,module,exports){
+"use strict";
+
+var Dispatcher = require('../dispatcher/appDispatcher');
+var AutoApi = require('../api/autoApi');
+var ActionTypes = require('../constants/actionTypes');
+
+var AutoActions = {
+    saveMaker: function(maker) {
+        AutoApi.saveMaker(maker).then(function(data){
+            Dispatcher.dispatch({
+                actionType: ActionTypes.SAVE_MAKER,
+                maker: data
+            });
+        });
+    },
+    removeMaker: function (maker) {
+        AutoApi.removeMaker(maker).then(function(data){
+            Dispatcher.dispatch({
+                actionType: ActionTypes.REMOVE_MAKER,
+                maker: data
+            });
+        });
+    }
+};
+
+module.exports = AutoActions;
+
+},{"../api/autoApi":208,"../constants/actionTypes":216,"../dispatcher/appDispatcher":217}],208:[function(require,module,exports){
+"use strict";
+var actions = require('../actions/autoActions');
+var _ = require('lodash');
+var Request = require('./request');
+
+var AutoApi = {
+    saveMaker: function(maker) {
+        return Request.post("/saveMaker", maker);
+    },
+    removeMaker: function (maker) {
+        return Request.post("/removeMaker", maker);
+    }
+};
+
+module.exports = AutoApi;
+
+},{"../actions/autoActions":207,"./request":209,"lodash":6}],209:[function(require,module,exports){
+"use strict";
+
+var Request = require('superagent');
+
+var headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+};
+
+module.exports = {
+    get: function (url) {
+        return new Promise(function (resolve, reject) {
+            Request.get(url)
+                .set(headers)
+                .end(function (err, res) {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    resolve(res.body);
+                });
+        });
+    },
+    post: function (url, data) {
+        return new Promise(function (resolve, reject) {
+            Request.post(url)
+                .set(headers)
+                .send(data)
+                .end(function (err, res) {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    resolve(res.body);
+                });
+        });
+    }
+};
+
+},{"superagent":204}],210:[function(require,module,exports){
+/*eslint-disable strict */ //Disabling check because we can't run strict mode. Need global vars.
+
+var React = require('react');
+var Header = require('./common/header');
+var RouteHandler = require('react-router').RouteHandler;
+$ = jQuery = require('jquery');
+
+var App = React.createClass({displayName: "App",
+	render: function() {
+		return (
+			React.createElement("div", null, 
+				React.createElement(Header, null), 
+				React.createElement("div", {className: "container-fluid"}, 
+					React.createElement(RouteHandler, null)
+				)
+			)
+		);
+	}
+});
+
+module.exports = App;
+
+},{"./common/header":212,"jquery":5,"react":203,"react-router":31}],211:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
+var Button = React.createClass({displayName: "Button",
+    propTypes: {
+        name: React.PropTypes.string.isRequired,
+        value: React.PropTypes.string.isRequired,
+        class: React.PropTypes.string,
+        onClick: React.PropTypes.func
+    },
+
+    render: function() {
+        return (
+            React.createElement("div", {className: this.props.class}, 
+                React.createElement("button", {type: "button", 
+                    name: this.props.name, 
+                    value: this.props.value, 
+                    className: "btn btn-primary", 
+                    onClick: this.props.onClick}, 
+                    this.props.value
+                )
+            )
+        );
+    }
+});
+
+module.exports = Button;
+},{"react":203}],212:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+var Router = require('react-router');
+var Link = Router.Link;
+
+var Header = React.createClass({displayName: "Header",
+	render: function() {
+		return (
+        React.createElement("nav", {className: "navbar navbar-default"}, 
+          React.createElement("div", {className: "container-fluid"}, 
+              React.createElement(Link, {to: "app", className: "navbar-brand"}, 
+                React.createElement("img", {src: "images/pluralsight-logo.png"})
+              ), 
+              React.createElement("ul", {className: "nav navbar-nav"}, 
+                React.createElement("li", null, React.createElement(Link, {to: "app"}, "Home"))
+              )
+          )
+        )
+		);
+	}
+});
+
+module.exports = Header;
+},{"react":203,"react-router":31}],213:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
+var Input = React.createClass({displayName: "Input",
+  propTypes: {
+    name: React.PropTypes.string.isRequired,
+    label: React.PropTypes.string.isRequired,
+    class: React.PropTypes.string,
+    onChange: React.PropTypes.func,
+    placeholder: React.PropTypes.string,
+    value: React.PropTypes.string,
+    error: React.PropTypes.string
+  },
+
+  render: function () {
+    var wrapperClass = 'form-group';
+    if (this.props.error && this.props.error.length > 0) {
+      wrapperClass += " " + 'has-error';
+    }
+    
+    return (
+     React.createElement("div", {className: wrapperClass + " " + this.props.class, style: {"display": "inline-block"}}, 
+        React.createElement("label", {htmlFor: this.props.name}, this.props.label), 
+        React.createElement("div", {className: "field"}, 
+          React.createElement("input", {type: "text", 
+            name: this.props.name, 
+            className: "form-control", 
+            placeholder: this.props.placeholder, 
+            ref: this.props.name, 
+            value: this.props.value, 
+            onChange: this.props.onChange}), 
+          React.createElement("div", {className: "input"}, this.props.error)
+        )
+      )
+    );
+  }
+});
+
+module.exports = Input;
+
+},{"react":203}],214:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+var Router = require('react-router');
+var Input = require('./common/textInput');
+var Button = require('./common/button');
+var AutoActions = require('../actions/autoActions');
+
+var Home = React.createClass({displayName: "Home",
+    render: function() {
+        return (
+            React.createElement("div", {className: "container"}, 
+                React.createElement("h1", null, "Administration Panel"), 
+                React.createElement("form", {name: "formData"}, 
+                    React.createElement("div", {className: "row"}, 
+                            React.createElement(Input, {label: "Enter Maker Name", name: "maker", class: "col-sm-2"}), 
+                            React.createElement(Input, {label: "Enter Model Name", name: "model", class: "col-sm-2"})
+                    ), 
+                    React.createElement("div", {className: "row"}, 
+                        React.createElement(Button, {name: "saveData", value: "Save Data", class: "col-sm-2", onClick: AutoActions.saveMaker.bind(this, {maker: "asd"})}), 
+                        React.createElement(Button, {name: "saveData", value: "Save Data", class: "col-sm-2", onClick: AutoActions.removeMaker.bind(this, {maker: "asd"})})
+                    )
+                )
+            )
+        );
+    }
+});
+
+module.exports = Home;
+
+},{"../actions/autoActions":207,"./common/button":211,"./common/textInput":213,"react":203,"react-router":31}],215:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+var Link = require('react-router').Link;
+
+var NotFoundPage = React.createClass({displayName: "NotFoundPage",
+	render: function() {
+		return (
+			React.createElement("div", null, 
+				React.createElement("h1", null, "Page Not Found"), 
+				React.createElement("p", null, "Whoops! Sorry, there is nothing to see here."), 
+				React.createElement("p", null, React.createElement(Link, {to: "app"}, "Back to Home"))
+			)
+		);
+	}
+});
+
+module.exports = NotFoundPage;
+
+},{"react":203,"react-router":31}],216:[function(require,module,exports){
+"use strict";
+
+var keyMirror = require('react/lib/keyMirror');
+
+module.exports = keyMirror({
+    SAVE_MAKER: null,
+    REMOVE_MAKER: null
+});
+
+},{"react/lib/keyMirror":188}],217:[function(require,module,exports){
+/*
+ * Copyright (c) 2015, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * AppDispatcher
+ *
+ * A singleton that operates as the central hub for application updates.
+ */
+
+var Dispatcher = require('flux').Dispatcher;
+
+module.exports = new Dispatcher();
+
+},{"flux":2}],218:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+var Router = require('react-router');
+var routes = require('./routes');
+
+Router.run(routes, function(Handler) {
+    React.render(React.createElement(Handler, null), document.getElementById('app'));
+});
+},{"./routes":219,"react":203,"react-router":31}],219:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
+var Router = require('react-router');
+var Route = Router.Route;
+var DefaultRoute = Router.DefaultRoute;
+var NotFoundRoute = Router.NotFoundRoute;
+
+var routes = (
+  React.createElement(Route, {name: "app", path: "/", handler: require('./components/app')}, 
+    React.createElement(DefaultRoute, {handler: require('./components/homePage')}), 
+    React.createElement(NotFoundRoute, {handler: require('./components/notFoundPage')})
+  )
+);
+
+module.exports = routes;
+
+},{"./components/app":210,"./components/homePage":214,"./components/notFoundPage":215,"react":203,"react-router":31}]},{},[218]);

@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $("#SignInForm").on("submit", function (e){
         e.preventDefault();
-        $.post("/signin/adminpanel", {
+        $.post("/admin", {
             username: SignInForm.UserName.value,
             password: SignInForm.UserPassword.value
         })
@@ -9,7 +9,7 @@ $(document).ready(function () {
             $("#SignInForm .form-group").removeClass("has-error");
             $("#SignInForm .form-group span").addClass("hidden");
             $("#SignInForm .form-group").addClass("has-success");
-            location.href = "/adminpanel";
+            location.href = "/admin";
         })
         .fail(function (data) {
             // validation for username field

@@ -29,6 +29,12 @@ Dispatcher.register(function(action) {
             _auto.push(action.maker);
             AutoStore.emitChange();
             break;
+        case ActionTypes.REMOVE_MAKER:
+            var existingAuto = _.find(_auto, {maker: action.maker});
+            var existingAutoIndex = _.indexOf(_auto, existingAuto);
+            _auto.splice(existingAutoIndex, 1, action.maker);
+            AutoStore.emitChange();
+            break;
         /*
         case ActionTypes.UPDATE_AUTHOR:
             var existingAuthor = _.find(_auto, {id: action.author.id});
