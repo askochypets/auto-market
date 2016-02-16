@@ -17,7 +17,7 @@ var Button = React.createClass({
                     name={this.props.name}
                     value={this.props.value}
                     className="btn btn-primary"
-                    onclick={this.props.onClick}>
+                    onClick={this.props.onClick}>
                     {this.props.value}
                 </button>
             </div>

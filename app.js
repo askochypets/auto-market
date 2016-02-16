@@ -21,6 +21,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'admin')));
+
+
+app.get("/admin", function (req, res) {
+    console.log(path);
+    res.sendFile(__dirname + "/admin/dist/index.html");
+});
 
 app.use('/', routes);
 

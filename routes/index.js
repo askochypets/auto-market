@@ -1,5 +1,6 @@
 var express = require('express'),
     router = express.Router(),
+    path = require('path'),
     mysql      = require('mysql'),
     connection = mysql.createConnection({
         host     : 'localhost',
@@ -179,9 +180,7 @@ router.get('/:maker/:model/:year', function(req, res, next) {
 
 router.post('/saveMaker', function(req, res) {
     var data = req.body;
-    res.set({
-        'Access-Control-Allow-Origin': '*'
-    });
+
     res.send(data);
 
     /*

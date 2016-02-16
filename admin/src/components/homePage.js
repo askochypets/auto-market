@@ -17,7 +17,7 @@ var Home = React.createClass({
                             <Input label="Enter Model Name" name="model" class="col-sm-2" />
                     </div>
                     <div className="row">
-                        <Button name="saveData" value="Save Data" class="col-sm-2" onClick={AutoActions.saveMaker({maker: "asda"})} />
+                        <Button name="saveData" value="Save Data" class="col-sm-2" onClick={AutoActions.saveMaker.bind(this, {maker: "asda"})} />
                     </div>
                 </form>
             </div>
