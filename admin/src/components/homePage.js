@@ -1,26 +1,28 @@
 "use strict";
 
 var React = require('react');
-var Router = require('react-router');
-var Input = require('./common/textInput');
-var Button = require('./common/button');
-var AutoActions = require('../actions/autoActions');
+var DataForm = require('./dataForm');
 
 var Home = React.createClass({
+    getInitialState: function () {
+        return {
+            data: {maker: '', model: ''}
+        };
+    },
+    setDataState: function (event) {
+        var field = event.target.name,
+            value = event.target.value;
+
+        this.state.data[field] = value;
+        return this.setState({data: this.state.data});
+    },
     render: function() {
         return (
             <div className="container">
                 <h1>Administration Panel</h1>
-                <form name="formData">
-                    <div className="row">
-                            <Input label="Enter Maker Name" name="maker" class="col-sm-2" />
-                            <Input label="Enter Model Name" name="model" class="col-sm-2" />
-                    </div>
-                    <div className="row">
-                        <Button name="saveData" value="Save Data" class="col-sm-2" onClick={AutoActions.saveMaker.bind(this, {maker: "asd"})} />
-                        <Button name="saveData" value="Save Data" class="col-sm-2" onClick={AutoActions.removeMaker.bind(this, {maker: "asd"})} />
-                    </div>
-                </form>
+                <DataForm
+                    data={this.state.data}
+                    onChange={this.setDataState} />
             </div>
         );
     }
