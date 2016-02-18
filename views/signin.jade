@@ -1,7 +1,7 @@
 extends layout
 block content
   div(class="center-block sign-in")
-    form(id="SignInForm" name="SignInForm")
+    form(id="SignInForm" name="SignInForm" action="/signin" method="post")
       div(class="form-group")
         label(class="control-label" "UserName") User name
         input(type="text" class="form-control" id="UserName" name="UserName" placeholder="User name")

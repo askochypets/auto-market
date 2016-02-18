@@ -3,11 +3,12 @@ var express = require('express'),
     favicon = require('serve-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser');
-
-var routes = require('./routes/index');
+    bodyParser = require('body-parser'),
+    passport = require('passport'),
+    session      = require('express-session');
 
 var app = express();
+require('./config/passport')(passport); // pass passport for configuration
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,11 +20,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+// required for passport
+app.use(session({ secret: 'q9v478ytnesptoe8wu5mnw4vwtyyor99yusmn5a3ov09uasv4tn' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use("/admin", express.static(path.join(__dirname, 'admin/dist')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+require('./routes/index')(app, passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
