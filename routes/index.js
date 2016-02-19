@@ -16,7 +16,7 @@ function capitalize (string) {
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
-
+    console.log(req, "login");
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
         return next();
@@ -52,7 +52,7 @@ module.exports = function (app, passport) {
 
     /* POST sign in action. */
     app.post('/signin', passport.authenticate('local-login', {
-        successRedirect : '/profile', // redirect to the secure profile section
+        successRedirect : '/admin', // redirect to the secure profile section
         failureRedirect : '/signin', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
@@ -65,6 +65,7 @@ module.exports = function (app, passport) {
 
     /* GET admin page. */
     app.get("/admin", isLoggedIn, function (req, res) {
+        console.log(req, "req");
         res.sendFile(path.join(__dirname, '../admin/dist/admin.html'), { title: "Admin Pannel" });
     });
 
